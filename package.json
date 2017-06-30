@@ -1,7 +1,7 @@
 {
   "name": "react-redux-restriction",
   "version": "1.0.1",
-  "description": "Conditional react restriction components using redux",
+  "description": "Conditional React restriction components using redux",
   "main": "index.js",
   "scripts": {
     "compile": "./node_modules/.bin/babel -d lib/ src/",
