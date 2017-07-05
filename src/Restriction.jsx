@@ -22,7 +22,10 @@ class Restriction extends React.Component {
 
   static propTypes = {
     not: PropTypes.bool,
-    condition: PropTypes.func,
+    condition: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.string,
+    ]),
     updateState: PropTypes.func,
     fixState: PropTypes.func,
 
@@ -77,10 +80,17 @@ class Restriction extends React.Component {
   }
 }
 
+const resolveCondition = (condition, state, props) => {
+  if (typeof condition === 'string') {
+    return state && state.getIn && state.getIn(condition.split('.'))
+  }
+  return condition(state, omit(props, Restriction.propNames))
+}
+
 const mapStateToProps = (state, { not, condition, ...props }) => ({
   restrictionPropMatch:
     !condition ||
-    !not === !!condition(state, omit(props, Restriction.propNames)),
+    !not === !!resolveCondition(condition, state, props),
 })
 
 const mapDispatchToProps = dispatch => ({

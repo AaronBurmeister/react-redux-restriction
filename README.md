@@ -87,13 +87,13 @@ import Restriction from 'react-redux-restriction';
 
 <Restriction
   not={boolean}
-  condition={(state, ownProps) => boolean}
+  condition={string | (state, ownProps) => boolean}
   updateState={(dispatch, ownProps) => void}
   fixState={(dispatch, ownProps) => void}
-  
+
   component={ReactComponent}
   render={(ownProps) => ReactNode}
-  
+
   {...ownProps}
 >
   {ReactNode}
@@ -104,28 +104,38 @@ import Restriction from 'react-redux-restriction';
 
 * **not:boolean**
 
-  Specifies wether the condition should be falsy (if set to true) or not. In fact this reverts the result of `condition`.
+  Specifies whether the condition should be falsy (if set to `true`) or not. In fact this reverts the result of `condition`.
 
-* **condition(state, ownProps):boolean**
+* **condition:string | condition(state, ownProps):boolean**
 
-  Checks the state and returns true if the condition is met.
+  Checks the state for a condition.
+
+  **string:**
+
+  Dot notated path to the value which should be tested for trueness.
+  For example `subState.data.1` with `{ subStat: { data: [ 'a', 'b' ] } }` returns `'b'` which is truthy whereas `subState.data.2` returns `undefined` which is falsy.
+
+  **function:**
+
   - Function parameters
-     - state: the current redux state
-     - ownProps: the components props beside Restriction specific ones
+     - `state`: the current redux state
+     - `ownProps`: the components props beside Restriction specific ones
+  - Return value
+     - A truthy value if the condition is met, a falsy value otherwise
 
 * **updateState(dispatch, ownProps):void**
 
   Gets called before the component gets rendered to alter the store if the condition meets the requirements.
   - Function parameters
-    - dispatch: the store's dispatch function
-    - ownProps: the components props beside Restriction specific ones
+    - `dispatch`: the store's dispatch function
+    - `ownProps`: the components props beside Restriction specific ones
 
 * **fixState(dispatch, ownProps):void**
 
   Gets called before the component gets rendered to alter the store if the condition doesn't meet the requirements.
   - Function parameters
-    - dispatch: the store's dispatch function
-    - ownProps: the components props beside Restriction specific ones
+    - `dispatch`: the store's dispatch function
+    - `ownProps`: the components props beside Restriction specific ones
 
 * **component:ReactComponent, render(ownProps):ReactNode, children:ReactNode**
 
@@ -153,10 +163,10 @@ const RestrictionRoute = Restriction.Route;
     },
     ...
   ]}
-  
+
   component={ReactComponent}
   render={(ownProps) => ReactComponent}
-  
+
   {...ownProps}
 >
   {ReactNode}
