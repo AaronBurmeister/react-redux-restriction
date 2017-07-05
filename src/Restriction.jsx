@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { omit } from 'lodash'
+import { get, omit } from 'lodash'
 
 import fetchComponent from './fetchComponent'
 
@@ -82,7 +82,9 @@ class Restriction extends React.Component {
 
 const resolveCondition = (condition, state, props) => {
   if (typeof condition === 'string') {
-    return state && state.getIn && state.getIn(condition.split('.'))
+    if (!state) return state
+    if (state.getIn) return state.getIn(condition.split('.'))
+    return get(state, condition)
   }
   return condition(state, omit(props, Restriction.propNames))
 }
