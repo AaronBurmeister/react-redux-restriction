@@ -28,7 +28,7 @@ You can use this package with React Router. The [Route](#restrictionroute) provi
 It is recommended to use [Reselect](https://github.com/reactjs/reselect) for the `condition` property.
 
 You can use it like this:
-```
+```jsx
 import { createSelector } from 'reselect';
 
 const state = { someData: { someOtherData: { a: undefined, b: 'value' } } };
@@ -190,7 +190,7 @@ const RestrictionRoute = Restriction.Route;
 Takes render methods and returns a React node.
 It is internally used by [Restriction](#restriction).
 
-```JavaScript
+```js
 ReactNode = fetchComponent(
   {
     component: ReactComponent,
