@@ -53,6 +53,42 @@ const selectIsASet = createSelector(
 </Restriction>
 ```
 
+You can also create a selector which depends on a value outside of the store. For this you have two options:
+
+* **Use the makeSelector structure:**
+  
+  ```JSX
+  const state = { someData: { someOtherData: { a: 'someVal', b: 'value' } } };
+
+  const makeSelectAEquals = (valueToEqual) => createSelector(
+    selectSomeOtherData,
+    someOtherData => someOtherData.a === valueToEqual
+  );
+
+  <Restriction condition={makeSelectAEquals('someVal')}>
+    This will be rendered
+  </Restriction>
+  ```
+  Please note that each selector has its own cache so that you may get redundant calls to the state. See [Memoized selectors](https://www.npmjs.com/package/reselect#creating-a-memoized-selector) for more details about reselect's memoizing approach.
+
+* **Use props:**
+  
+  ```JSX
+  const state = { someData: { someOtherData: { a: 'someVal', b: 'value' } } };
+
+  const selectAEqualsValueToEqualProp = createSelector(
+    // selector list
+    selectSomeOtherData,
+    (state, props) => props && props.valueToEqual,
+    // reducer
+    (someOtherData, valueToEqual) => someOtherData.a === valueToEqual
+  );
+
+  <Restriction condition={selectAEqualsValueToEqualProp} valueToEqual="someVal">
+    This will be rendered
+  </Restriction>
+  ```
+
 ## Passing children
 
 Children can be passed using one of the following props:
