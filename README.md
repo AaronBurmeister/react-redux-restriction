@@ -28,7 +28,7 @@ You can use this package with React Router. The [Route](#restrictionroute) provi
 It is recommended to use [Reselect](https://github.com/reactjs/reselect) for the `condition` property.
 
 You can use it like this:
-```jsx
+```JSX
 import { createSelector } from 'reselect';
 
 const state = { someData: { someOtherData: { a: undefined, b: 'value' } } };
@@ -82,7 +82,7 @@ This structure is inspired from [React Router's render methods](https://reacttra
 Only renders the underlying children if the condition is met.
 It also can be used to alter the store based on a condition.
 
-```jsx
+```JSX
 import Restriction from 'react-redux-restriction';
 
 <Restriction
@@ -145,7 +145,7 @@ import Restriction from 'react-redux-restriction';
 
 Wrapps a [Route](https://github.com/ReactTraining/react-router) into [Restrictions](#restriction) in order to create state dependent conditional routes.
 
-```jsx
+```JSX
 // Either
 import { RestrictionRoute } from 'react-redux-restriction';
 // Or
