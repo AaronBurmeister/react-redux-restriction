@@ -149,7 +149,7 @@ import Restriction from 'react-redux-restriction';
   **string:**
 
   Dot notated path to the value which should be tested for trueness.
-  For example `subState.data.1` with `{ subStat: { data: [ 'a', 'b' ] } }` returns `'b'` which is truthy whereas `subState.data.2` returns `undefined` which is falsy.
+  For example `subState.data.1` with `{ subState: { data: [ 'a', 'b' ] } }` returns `'b'` which is truthy whereas `subState.data.2` returns `undefined` which is falsy.
 
   **function:**
 
