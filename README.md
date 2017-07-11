@@ -167,6 +167,7 @@ import Restriction from 'react-redux-restriction';
   </b>
 
   Checks the state for a condition.
+  This is ignored if `data` is set.
   
   **string:**
 
