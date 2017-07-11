@@ -9,6 +9,8 @@ class Restriction extends React.Component {
   static propNames = [
     'not',
     'condition',
+    'data',
+    'by',
     'updateState',
     'fixState',
 
@@ -26,6 +28,11 @@ class Restriction extends React.Component {
       PropTypes.func,
       PropTypes.string,
     ]),
+    data: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.string,
+    ]),
+    by: PropTypes.func,
     updateState: PropTypes.func,
     fixState: PropTypes.func,
 
@@ -80,19 +87,21 @@ class Restriction extends React.Component {
   }
 }
 
-const resolveCondition = (condition, state, props) => {
-  if (typeof condition === 'string') {
+const resolveCondition = (condition, data, state, props) => {
+  const getData = data ? data : condition
+  if (typeof getData === 'string') {
     if (!state) return state
-    if (state.getIn) return state.getIn(condition.split('.'))
-    return get(state, condition)
+    if (state.getIn) return state.getIn(getData.split('.'))
+    return get(state, getData)
   }
-  return condition(state, omit(props, Restriction.propNames))
+  return getData(state, omit(props, Restriction.propNames))
 }
 
-const mapStateToProps = (state, { not, condition, ...props }) => ({
+const mapStateToProps = (state, { not, condition, data, by = value => value, ...props }) => ({
   restrictionPropMatch:
-    !condition ||
-    !not === !!resolveCondition(condition, state, props),
+    (!condition && !data)
+    ||
+    !not === !!by(resolveCondition(condition, data, state, props)),
 })
 
 const mapDispatchToProps = dispatch => ({
