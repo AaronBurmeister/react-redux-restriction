@@ -47,7 +47,7 @@ const selectIsASet = createSelector(
 
 <Restriction
   not
-  condition={selectIsASet}
+  data={selectIsASet}
 >
   This will be rendered
 </Restriction>
@@ -65,7 +65,7 @@ You can also create a selector which depends on a value outside of the store. Fo
     someOtherData => someOtherData.a === valueToEqual
   );
 
-  <Restriction condition={makeSelectAEquals('someVal')}>
+  <Restriction data={makeSelectAEquals('someVal')}>
     This will be rendered
   </Restriction>
   ```
@@ -84,7 +84,22 @@ You can also create a selector which depends on a value outside of the store. Fo
     (someOtherData, valueToEqual) => someOtherData.a === valueToEqual
   );
 
-  <Restriction condition={selectAEqualsValueToEqualProp} valueToEqual="someVal">
+  <Restriction data={selectAEqualsValueToEqualProp} valueToEqual="someVal">
+    This will be rendered
+  </Restriction>
+  ```
+
+* **Use `by` prop:**
+
+  ```JSX
+  const state = { someData: { someOtherData: { a: 'someVal', b: 'value' } } };
+
+  const selectA = createSelector(
+    selectSomeOtherData,
+    someOtherData => someOtherData.a
+  );
+
+  <Restriction data={selectA} by={value => value === "someVal"}>
     This will be rendered
   </Restriction>
   ```
@@ -123,7 +138,9 @@ import Restriction from 'react-redux-restriction';
 
 <Restriction
   not={boolean}
-  condition={string | (state, ownProps) => boolean}
+  condition={string | (state, ownProps) => boolean} // deprecated
+  data={string | (state, ownProps) => value}
+  by={(value) => boolean}
   updateState={(dispatch, ownProps) => void}
   fixState={(dispatch, ownProps) => void}
 
@@ -144,8 +161,15 @@ import Restriction from 'react-redux-restriction';
 
 * **condition:string | condition(state, ownProps):boolean**
 
-  Checks the state for a condition.
+  <aside class="warning">
+    <b>
+      This is deprecated.
+      This prop is now an alias for <code>data</code> but works the same as before if <code>by</code> is not set explicitely.
+    </b>
+  </aside>
 
+  Checks the state for a condition.
+  
   **string:**
 
   Dot notated path to the value which should be tested for trueness.
@@ -158,6 +182,34 @@ import Restriction from 'react-redux-restriction';
      - `ownProps`: the components props beside Restriction specific ones
   - Return value
      - A truthy value if the condition is met, a falsy value otherwise
+
+* **data:string | data(state, ownProps):value**
+
+  Resolves data from the state to be checked for a condition.
+  The data is then evaluated by the `by` prop.
+  
+  **string:**
+
+  Dot notated path to the value which should be resolved.
+  For example `subState.data.1` with `{ subState: { data: [ 'a', 'b' ] } }` returns `'b'`.
+
+  **function:**
+
+  - Function parameters
+     - `state`: the current redux state
+     - `ownProps`: the components props beside Restriction specific ones
+  - Return value
+     - A value to be checked for a condition
+
+* **by(value):boolean**
+
+  Checks the value resolved from `data` or `condition` for a condition.
+  - Function parameters
+    - `value`: the value to be checked
+  - Return value
+    - True if the condition is met, false otherwise
+  
+  Default value: `value => value` which checks the value for trueness.
 
 * **updateState(dispatch, ownProps):void**
 
@@ -192,7 +244,9 @@ const RestrictionRoute = Restriction.Route;
   conditions={[
     {
       not,
-      condition,
+      condition, // deprecated
+      data,
+      by,
       updateState,
       fixState,
       ...ownProps
