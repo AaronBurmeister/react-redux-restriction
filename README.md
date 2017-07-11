@@ -161,12 +161,10 @@ import Restriction from 'react-redux-restriction';
 
 * **condition:string | condition(state, ownProps):boolean**
 
-  <aside class="warning">
-    <b>
-      This is deprecated.
-      This prop is now an alias for <code>data</code> but works the same as before if <code>by</code> is not set explicitely.
-    </b>
-  </aside>
+  <b>
+    This is deprecated.
+    This prop is now an alias for <code>data</code> but works the same as before if <code>by</code> is not set explicitely.
+  </b>
 
   Checks the state for a condition.
   
