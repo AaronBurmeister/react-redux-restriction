@@ -6,6 +6,7 @@ react-redux-restriction provides React components which allow redux dependent co
  - [React, Redux](#react-redux)
  - [React Router](#react-router)
  - [Reselect](#reselect)
+ - [When would I need this?](#why-would-i-need-this)
  - [Passing children](#passing-children)
  - [API](#api)
    - [\<Restriction\>](#restriction)
@@ -103,6 +104,23 @@ You can also create a selector which depends on a value outside of the store. Fo
     This will be rendered
   </Restriction>
   ```
+
+## When would I need this?
+
+This package provides simple bindings for components which depend on the current state of your application.
+You could surely also simply use the `react-redux` `connect` function directly but then you would need to add code on multiple places only for a simple check
+  - you would need to add the `connect` function and create the corresponding `mapStateToProps` parameter to your component
+  - you would need to add the new prop to your PropTypes
+  - you would eventually need to pass the prop down to your dumb component if you have one
+  - you would need to add the conditional code itself
+
+When using `react-redux-restriction` you only would need to have a selector and the restriction component.
+
+Typical use cases for this package would be if
+  - your navigation would need to adapt to the permissions of the signed in user or if a user is signed in or not
+  - you would like to create data filters
+  - you would like to restrict routes to e.g. signed in users
+  - you would like to alter your state if a specific condition is met and your component is rendered e.g. you would need to receive additional information from your API for your component if the component meets some filters
 
 ## Passing children
 
