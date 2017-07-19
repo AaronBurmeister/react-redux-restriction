@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import resolveElement, { renderProps } from 'react-resolve-element'
 import { connect } from 'react-redux'
 import { get, omit } from 'lodash'
-
-import fetchComponent from './fetchComponent'
 
 class Restriction extends React.Component {
   static propNames = [
@@ -14,9 +13,7 @@ class Restriction extends React.Component {
     'updateState',
     'fixState',
 
-    'component',
-    'render',
-    'children',
+    ...Object.keys(renderProps),
 
     'restrictionPropMatch',
     'restrictionPropDispatch',
@@ -36,12 +33,7 @@ class Restriction extends React.Component {
     updateState: PropTypes.func,
     fixState: PropTypes.func,
 
-    component: PropTypes.func,
-    render: PropTypes.func,
-    children: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.node,
-    ]),
+    ...renderProps,
 
     restrictionPropMatch: PropTypes.bool.isRequired,
     restrictionPropDispatch: PropTypes.func.isRequired,
@@ -83,7 +75,7 @@ class Restriction extends React.Component {
     if (!restrictionPropMatch) return none
 
     const childProps = omit(props, this.propNames)
-    return fetchComponent(props, childProps, none)
+    return resolveElement(props, childProps, none)
   }
 }
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
-import Restriction, { RestrictionRoute, fetchComponent } from '../'
+import Restriction, { RestrictionRoute } from '../'
 import { expect } from 'chai'
 
 describe('react-redux-restriction', () => {
@@ -12,12 +12,6 @@ describe('react-redux-restriction', () => {
   it('should export the RestrictionRoute class', done => {
     expect(RestrictionRoute).to.exist
     expect(Restriction.Route).to.equal(RestrictionRoute)
-    done()
-  })
-
-  it('should export the fetchComponent function', done => {
-    expect(fetchComponent).to.exist
-    expect(fetchComponent).to.be.a('function')
     done()
   })
 })
