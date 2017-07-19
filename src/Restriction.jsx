@@ -80,7 +80,7 @@ class Restriction extends React.Component {
 }
 
 const resolveCondition = (condition, data, state, props) => {
-  const getData = data ? data : condition
+  const getData = data || condition
   if (typeof getData === 'string') {
     if (!state) return state
     if (state.getIn) return state.getIn(getData.split('.'))
