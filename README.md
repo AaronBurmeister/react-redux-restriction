@@ -2,6 +2,8 @@
 
 react-redux-restriction provides React components which allow redux dependent conditional rendering.
 
+[![NPM](https://nodei.co/npm/react-redux-restriction.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-redux-restriction/)
+
 ## Table of contents
  - [React, Redux](#react-redux)
  - [React Router](#react-router)
@@ -57,7 +59,7 @@ const selectIsASet = createSelector(
 You can also create a selector which depends on a value outside of the store. For this you have two options:
 
 * **Use the makeSelector structure:**
-  
+
   ```JSX
   const state = { someData: { someOtherData: { a: 'someVal', b: 'value' } } };
 
@@ -73,7 +75,7 @@ You can also create a selector which depends on a value outside of the store. Fo
   Please note that each selector has its own cache so that you may get redundant calls to the state. See [Memoized selectors](https://www.npmjs.com/package/reselect#creating-a-memoized-selector) for more details about reselect's memoizing approach.
 
 * **Use props:**
-  
+
   ```JSX
   const state = { someData: { someOtherData: { a: 'someVal', b: 'value' } } };
 
@@ -186,7 +188,7 @@ import Restriction from 'react-redux-restriction';
 
   Checks the state for a condition.
   This is ignored if `data` is set.
-  
+
   **string:**
 
   Dot notated path to the value which should be tested for trueness.
@@ -204,7 +206,7 @@ import Restriction from 'react-redux-restriction';
 
   Resolves data from the state to be checked for a condition.
   The data is then evaluated by the `by` prop.
-  
+
   **string:**
 
   Dot notated path to the value which should be resolved.
@@ -225,7 +227,7 @@ import Restriction from 'react-redux-restriction';
     - `value`: the value to be checked
   - Return value
     - True if the condition is met, false otherwise
-  
+
   Default value: `value => value` which checks the value for trueness.
 
 * **updateState(dispatch, ownProps):void**
@@ -298,6 +300,8 @@ Takes render methods and returns a React node.
 It is internally used by [Restriction](#restriction).
 
 ```js
+import { fetchComponent } from 'react-redux-restriction';
+
 ReactNode = fetchComponent(
   {
     component: ReactComponent,
@@ -309,7 +313,7 @@ ReactNode = fetchComponent(
 );
 ```
 
-### Function parameters
+#### Function parameters
 
 * **Render methods**
 
@@ -325,6 +329,6 @@ ReactNode = fetchComponent(
   The value which should be returned if none of the supported render methods was supplied.
   This is set to `null` by default.
 
-### Return value
+#### Return value
 
 Returns a `ReactNode` from the provided render method or `Default value` if no supported render method was supplied.
