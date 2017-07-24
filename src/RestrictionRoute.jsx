@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Route } from 'react-router-dom'
+import { reduceRight } from 'lodash'
 import { withRouter } from 'react-router'
 
 import Restriction from './Restriction'
@@ -8,7 +9,7 @@ import Restriction from './Restriction'
 const RestrictionRoute = ({ conditions, component, render, children, ...props }) => (
   <Route {...props}>
     {(
-      conditions.reduceRight((child, condition) => (
+      reduceRight(conditions, (child, condition) => (
         <Restriction {...props} {...condition}>
           {(child)}
         </Restriction>

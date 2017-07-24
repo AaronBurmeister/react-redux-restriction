@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import resolveElement, { renderProps } from 'react-resolve-element'
 import { connect } from 'react-redux'
-import { get, omit } from 'lodash'
+import { get, omit, split } from 'lodash'
 
 class Restriction extends React.Component {
   static propNames = [
@@ -83,7 +83,7 @@ const resolveCondition = (condition, data, state, props) => {
   const getData = data || condition
   if (typeof getData === 'string') {
     if (!state) return state
-    if (state.getIn) return state.getIn(getData.split('.'))
+    if (state.getIn) return state.getIn(split(getData, '.'))
     return get(state, getData)
   }
   return getData(state, omit(props, Restriction.propNames))
