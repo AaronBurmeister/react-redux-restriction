@@ -48,7 +48,7 @@ class Restriction extends React.Component {
   }
 
   update({ updateState, fixState, restrictionPropMatch, restrictionPropDispatch, ...props }) {
-    const childProps = omit(props, this.propNames)
+    const childProps = omit(props, Restriction.propNames)
 
     if (restrictionPropMatch && updateState) {
       updateState(
@@ -74,7 +74,7 @@ class Restriction extends React.Component {
 
     if (!restrictionPropMatch) return none
 
-    const childProps = omit(props, this.propNames)
+    const childProps = omit(props, Restriction.propNames)
     return resolveElement(props, childProps, none)
   }
 }
