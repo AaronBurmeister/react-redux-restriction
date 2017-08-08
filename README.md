@@ -13,7 +13,6 @@ react-redux-restriction provides React components which allow redux dependent co
  - [API](#api)
    - [\<Restriction\>](#restriction)
    - [\<RestrictionRoute\>](#restrictionroute)
-   - [fetchComponent()](#fetchcomponent)
 
 ## React, Redux
 
@@ -126,25 +125,7 @@ Typical use cases for this package would be if
 
 ## Passing children
 
-Children can be passed using one of the following props:
-
-* **component:ReactComponent**
-
-  Creates a React node from the component with ownProps provided.
-  This takes precendence over `render` and `children`.
-
-* **render(ownProps):ReactNode**
-
-  Should return a React node. The ownProps are passed as argument.
-  This takes precendence over `children`.
-
-* **children:ReactNode**
-
-  Directly passed children.
-
-See [fetchComponent](#fetchcomponent).
-
-This structure is inspired from [React Router's render methods](https://reacttraining.com/react-router/web/api/Route/Route-render-methods).
+This package uses [react-resolve-element](https://npmjs.com/package/react-resolve-element) for passing children.
 
 ## API
 
@@ -293,42 +274,3 @@ const RestrictionRoute = Restriction.Route;
 * **component:ReactComponent, render(ownProps):ReactNode, children:ReactNode**
 
   See [Passing children](#passing-children)
-
-### fetchComponent()
-
-Takes render methods and returns a React node.
-It is internally used by [Restriction](#restriction).
-
-```js
-import { fetchComponent } from 'react-redux-restriction';
-
-ReactNode = fetchComponent(
-  {
-    component: ReactComponent,
-    render: (ownProps) => ReactNode,
-    children: ReactNode
-  },
-  props,
-  defaultValue = null
-);
-```
-
-#### Function parameters
-
-* **Render methods**
-
-  Contains one of the render methods.
-  See [Passing children](#passing-children) for more information.
-
-* **Props**
-
-  The props which should be passed to the node if supported. This doesn't work with the `children` prop.
-
-* **Default value**
-
-  The value which should be returned if none of the supported render methods was supplied.
-  This is set to `null` by default.
-
-#### Return value
-
-Returns a `ReactNode` from the provided render method or `Default value` if no supported render method was supplied.
