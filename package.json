@@ -1,6 +1,6 @@
 {
   "name": "react-redux-restriction",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Conditional React restriction components using redux",
   "main": "index.js",
   "scripts": {
