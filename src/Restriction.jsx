@@ -5,20 +5,6 @@ import { connect } from 'react-redux'
 import { get, omit, split } from 'lodash'
 
 class Restriction extends React.Component {
-  static propNames = [
-    'not',
-    'condition',
-    'data',
-    'by',
-    'updateState',
-    'fixState',
-
-    ...Object.keys(renderProps),
-
-    'restrictionPropMatch',
-    'restrictionPropDispatch',
-  ]
-
   static propTypes = {
     not: PropTypes.bool,
     condition: PropTypes.oneOfType([
@@ -38,6 +24,8 @@ class Restriction extends React.Component {
     restrictionPropMatch: PropTypes.bool.isRequired,
     restrictionPropDispatch: PropTypes.func.isRequired,
   }
+
+  static propNames = Object.keys(Restriction.propTypes);
 
   componentWillMount() {
     this.update(this.props)
