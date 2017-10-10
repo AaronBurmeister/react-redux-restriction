@@ -48,5 +48,5 @@ RestrictionRoute.defaultProps = {
 }
 
 const ConnectedRestrictionRoute = withRouter(RestrictionRoute)
-ConnectedRestriction.displayName = 'Connect(RestrictionRoute)'
+ConnectedRestrictionRoute.displayName = 'Connect(RestrictionRoute)'
 export default ConnectedRestrictionRoute
