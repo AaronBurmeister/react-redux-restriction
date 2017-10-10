@@ -89,5 +89,5 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const ConnectedRestriction = connect(mapStateToProps, mapDispatchToProps)(Restriction)
-ConnectedRestriction.displayName = 'Restriction'
+ConnectedRestriction.displayName = 'Connect(Restriction)'
 export default ConnectedRestriction
