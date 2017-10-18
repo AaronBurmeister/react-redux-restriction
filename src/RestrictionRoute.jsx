@@ -1,29 +1,24 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import resolveElement, { renderProps } from 'react-resolve-element'
 import { Route } from 'react-router-dom'
 import { reduceRight } from 'lodash'
-import { withRouter } from 'react-router'
 
 import Restriction from './Restriction'
 
 const RestrictionRoute = ({ conditions, component, render, children, ...props }) => (
   <Route {...props}>
-    {(
-      reduceRight(conditions, (child, condition) => (
-        <Restriction {...props} {...condition}>
-          {(child)}
-        </Restriction>
-      ), (
-        <Route
-          {...props}
-          {...{
-            component,
-            render,
-            children,
-          }}
-        />
-      ))
-    )}
+    {
+      reduceRight(
+        conditions,
+        (child, condition) => (
+          <Restriction {...props} {...condition}>
+            {(child)}
+          </Restriction>
+        ),
+        resolveElement({ component, render, children }, props, null)
+      )
+    }
   </Route>
 )
 
@@ -35,18 +30,11 @@ RestrictionRoute.propTypes = {
     fixState: PropTypes.func,
   })),
 
-  component: PropTypes.func,
-  render: PropTypes.func,
-  children: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.node,
-  ]),
+  ...renderProps,
 }
 
 RestrictionRoute.defaultProps = {
   conditions: [],
 }
 
-const ConnectedRestrictionRoute = withRouter(RestrictionRoute)
-ConnectedRestrictionRoute.displayName = 'Connect(RestrictionRoute)'
-export default ConnectedRestrictionRoute
+export default RestrictionRoute

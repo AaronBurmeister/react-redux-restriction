@@ -127,6 +127,17 @@ Typical use cases for this package would be if
 
 This package uses [react-resolve-element](https://npmjs.com/package/react-resolve-element) for passing children.
 
+<details>
+<summary><b>Compatibility with <code>React < 16.0</code></b></summary>
+
+This package provides a named export for `react-resolve-element`'s `supportChildren` wrapper.
+Please look at the [compatibility notes](https://npmjs.com/package/react-resolve-element#the-concept) for information on how to use it.
+
+```js
+import { supportChildren } from 'react-redux-restriction';
+```
+</details>
+
 ## API
 
 ### \<Restriction\>
