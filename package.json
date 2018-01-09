@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:AaronBurmeister/react-redux-restriction.git"
+    "url": "git+git@github.com:hatsuo/react-redux-restriction.git"
   },
   "keywords": [
     "condition",
@@ -27,9 +27,9 @@
   "author": "Aaron Burmeister",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AaronBurmeister/react-redux-restriction/issues"
+    "url": "https://github.com/hatsuo/react-redux-restriction/issues"
   },
-  "homepage": "https://github.com/AaronBurmeister/react-redux-restriction#readme",
+  "homepage": "https://github.com/hatsuo/react-redux-restriction#readme",
   "devDependencies": {
     "babel-cli": "^6.9.0",
     "babel-core": "^6.9.0",
